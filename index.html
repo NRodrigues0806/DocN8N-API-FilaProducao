@@ -116,6 +116,10 @@
             <p>Endpoint de monitoramento. Verifica a saúde do serviço realizando operações de teste (Set/Get) diretamente no banco de dados Redis para garantir que a fila está responsiva.</p>
             <h4>Respostas</h4>
             <p><span class="badge">200 OK</span> - Serviço operacional.</p>
+            <pre><code>{
+  "status": "ok",
+  "servico": "fila"
+}</code></pre>
         </div>
 
         <div class="endpoint">
@@ -133,6 +137,9 @@
 }</code></pre>
             <h4>Respostas</h4>
             <p><span class="badge">200 OK</span> - Pedido recebido e enfileirado no Redis.</p>
+            <pre><code>{
+  "status": "Pedido enfileirado"
+}</code></pre>
             <p><span class="badge">400 Bad Request</span> - Falha de validação (ex: ID ausente).</p>
             <p><span class="badge">401 Unauthorized</span> - Credenciais inválidas.</p>
         </div>
@@ -144,6 +151,9 @@
             <p><code>x-api-key: turma2026</code></p>
             <h4>Respostas</h4>
             <p><span class="badge">200 OK</span> - Pedido retirado da fila e encaminhado à orquestração.</p>
+            <pre><code>{
+  "status": "sucesso"
+}</code></pre>
             <p><span class="badge">401 Unauthorized</span> - Credenciais inválidas.</p>
         </div>
 
@@ -159,7 +169,11 @@
         <div class="endpoint">
             <h3>Criar um Pedido na Fila (cURL)</h3>
             <p>Exemplo de como o Orquestrador deve enviar um novo pedido validado para a Fila de Produção através do terminal.</p>
-            <pre><code>curl -X POST https://pzaas.online/webhook/v1/fila   -H "Content-Type: application/json"   -H "x-api-key: turma2026"   -H "x-pedido-id: PZ-20260908-ABC123"   -d '{
+            <pre><code>curl -X POST https://pzaas.online/webhook/v1/fila \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: turma2026" \
+  -H "x-pedido-id: PZ-20260908-ABC123" \
+  -d '{
     "pedido_id": "PZ-20260908-ABC123",
     "status": "em_fila",
     "itens": [
@@ -177,7 +191,8 @@
         <div class="endpoint">
             <h3>Acionar Liberação de Pedido (cURL)</h3>
             <p>Exemplo de como puxar o próximo pedido da fila (Pop). Ideal para testar a comunicação subsequente com o Orquestrador.</p>
-            <pre><code>curl -X POST https://pzaas.online/webhook/v1/fila/liberar   -H "x-api-key: turma2026"</code></pre>
+            <pre><code>curl -X POST https://pzaas.online/webhook/v1/fila/liberar \
+  -H "x-api-key: turma2026"</code></pre>
         </div>
 
         <div class="footer">
