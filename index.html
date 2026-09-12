@@ -101,7 +101,7 @@
             </tr>
             <tr>
                 <th>Autenticação</th>
-                <td>Header <code>x-api-key: turma2026</code> (Obrigatório em todas as rotas, exceto /health)</td>
+                <td>Header <code>x-api-key: <Consultar chave com proprietário></code> (Obrigatório em todas as rotas, exceto /health)</td>
             </tr>
             <tr>
                 <th>Rastreabilidade</th>
@@ -126,7 +126,7 @@
             <h3><span class="method post">POST</span> /webhook/v1/fila</h3>
             <p>Recebe o pedido do Orquestrador. O serviço imediatamente grava o pedido no Redis (Push) para garantir persistência e, em seguida, tenta enviá-lo ao Forno. Se o Forno rejeitar (429/503), o pedido permanece retido para reenvio assíncrono.</p>
             <h4>Headers</h4>
-            <p><code>Content-Type: application/json</code><br><code>x-api-key: turma2026</code></p>
+            <p><code>Content-Type: application/json</code><br><code>x-api-key: <Consultar chave com proprietário></code></p>
             <h4>Request Body</h4>
             <pre><code>{
   "pedido_id": "PZ-20260908-ABC123",
@@ -148,7 +148,7 @@
             <h3><span class="method post">POST</span> /webhook/v1/fila/liberar</h3>
             <p>Gatilho manual ou automatizado para remover o pedido mais antigo da fila (Redis Pop). Após a remoção, o serviço comunica o Orquestrador Principal via PATCH para evoluir o status do pedido.</p>
             <h4>Headers</h4>
-            <p><code>x-api-key: turma2026</code></p>
+            <p><code>x-api-key: <Consultar chave com proprietário></code></p>
             <h4>Respostas</h4>
             <p><span class="badge">200 OK</span> - Pedido retirado da fila e encaminhado à orquestração.</p>
             <pre><code>{
@@ -171,7 +171,7 @@
             <p>Exemplo de como o Orquestrador deve enviar um novo pedido validado para a Fila de Produção através do terminal.</p>
             <pre><code>curl -X POST https://pzaas.online/webhook/v1/fila \
   -H "Content-Type: application/json" \
-  -H "x-api-key: turma2026" \
+  -H "x-api-key: <Consultar chave com proprietário>" \
   -H "x-pedido-id: PZ-20260908-ABC123" \
   -d '{
     "pedido_id": "PZ-20260908-ABC123",
@@ -192,7 +192,7 @@
             <h3>Acionar Liberação de Pedido (cURL)</h3>
             <p>Exemplo de como puxar o próximo pedido da fila (Pop). Ideal para testar a comunicação subsequente com o Orquestrador.</p>
             <pre><code>curl -X POST https://pzaas.online/webhook/v1/fila/liberar \
-  -H "x-api-key: turma2026"</code></pre>
+  -H "x-api-key: <Consultar chave com proprietário>"</code></pre>
         </div>
 
         <div class="footer">
